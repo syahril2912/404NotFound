@@ -1,0 +1,86 @@
+Static Routing | Mikrotik GNS3
+
+- Setup Wizard 
+
+- Create Project
+Name Project: Static Routing Mikrotik GNS3
+
+- Tambahkan Router Mikrotik
+Edit->Preferences
+Qemu->QemuVms
+New->Run Qemu VMS on GNS 3 VM-> Next
+Name: Mikrotik, Next
+Qemu Binary:Default,Ram:Default, Next
+Telnet, Next
+New Image, Browse -> OS Mikrotik -> Open
+Finish
+
+- Tambahkan Network Device Pada Mikrotik
+Edit->Preferences
+Klik Router Mikrotik -> Edit
+General Settings -> Symbols -> Browse
+Network -> Adapter:10, Name Format: ether(1)
+Oke, Oke
+
+- Siapkan Device
+2 Mikrotik CHR
+4 Switch (GNS3 VM)
+2 PC (GNS3 VM)
+1 Cloud = Representasi dari GNS3 VM (Virtual Box) yang memiliki 2 Network Adapter
+	  Adapter 1 Host Only, Adapter 2 NAT
+
+- Hubungkan Mikrotik 1 dan Mikrotik 2 dengan Kabel (Ether0 - Ether0)
+- Hubungkan Mikrotik 1 dan Switch 1 dengan Kabel (Ether1 - Ethernet0)
+- Hubungkan Mikrotik 2 dan Switch 2 dengan Kabel (Ether1 - Ethernet0)
+- Hubungkan Switch 1 dan PC 1 dengan Kabel (Ethernet1 - Ethernet0)
+- Hubungkan Switch 2 dan PC 2 dengan Kabel (Ethernet1 - Ethernet0)
+
+
+- Konfigurasi Pada Mikrotik 1
+Klik Mikrotik -> Console
+Mikrotik>ip address add address=192.168.3.1/24 interface=ether1
+Mikrotik>ip address add address=192.168.1.1/24 interface=ether2
+Mikrotik>ip route add dst-address=192.168.2.0/24 gateway=192.168.3.2
+
+- Konfigurasi Pada Mikrotik 2
+Klik Mikrotik -> Console
+Mikrotik>ip address add address=192.168.3.2/24 interface=ether1
+Mikrotik>ip address add address=192.168.2.1/24 interface=ether2
+Mikrotik>ip route add dst-address=192.168.1.0/24 gateway=192.168.3.1
+
+- Konfigurasi Pada PC 1
+Klik PC -> Console
+PC>ip 192.168.1.2 255.255.255.0 192.168.1.1
+- Konfigurasi Pada PC 2
+Klik PC -> Console
+PC>ip 192.168.2.2 255.255.255.0 192.168.2.1
+
+- Test Ping Semua Device
+
+- Tambahkan Cloud untuk melakukan Remote Winbox pada Mikrotik
+Klik Cloud -> VM GNS3
+Tambahkan Switch 3 -> VM GNS3
+Stop Semua Device
+- Hubungkan Cloud dengan Switch 3 dengan Kabel (Eth0 - Ethernet0)
+- Hubungkan Switch3 dengan Mikrotik 1 dengan Kabel (Ethernet1 - Ether2)
+- Hubungkan Switch4 dengan Mikrotik 2 dengan Kabel (Ethernet2 - Ether2)
+Start Semua Device
+
+- Remote lewat winbox dan Cek IP DHCP Client dari Cloud
+Buka Winbox - Klik Router Mikrotik
+IP -> DHCPClient
+Hapus Ether 1 Pada DHCP Client (-)
+Tambahkan lagi (+), Add - Ether3 - Oke
+IP Interface Host Only Virtual Box
+
+- Connect Internet
+Tambahkan Switch 4 -> VM GNS3
+- Hubungkan Cloud dan Switch 4 dengan Kabel (Eth1 - Ethernet0)
+- Hubungkan Switch 4 dan Mikrotik2 dengan Kabel (Ethernet1 - Ether3)
+
+Buka Winbox - Klik Router Mikrotik2
+IP -> DHCPClient
+Tambahkan(+), Add - Ether4 - Oke
+IP NAT
+
+- Test Ping google.com

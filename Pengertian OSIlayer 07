@@ -1,0 +1,97 @@
+Materi Osi Layer
+
+Pemateri: Danar Pamungkas
+====================================================================================================================================================================================
+# Definisi OSI Layer:
+Sebuah model jaringan untuk menjembatani pengembangan piranti jaringan agar tetap bisa berkomunikasi walaupun dikembangkan oleh banyak pengembang.
+Contoh (Windows LAN Card Vendor x  dan Macintos LAN Card Vendor y)
+
+
+# Manfaat OSI Layer:
+- Memudahkan untuk memahami cara kerja jaringan komputer secara menyeluruh.
+Contoh: Bagaimana data itu mengalir, request dan response nya seperti apa.
+
+- Memecah (breakdown) persoalan komunikasi data untuk mempermudah troubleshooting.
+Contoh: Koneksi Internet, Solve: Memeriksa wifi, perangkat belum terhubung, lan card belum terkoneksi, dll
+
+- Memungkinkan vendor/pakar untuk mendesain dan mengembangakan hardware/software yang sesuai dengan layer tertentu.
+Contoh: Media Transmisi(WIFI), Port USB, dll
+
+- Menyediakan standard interface bagi pengembang perangkat yang melibatkan multivendor.
+Contoh: Port USB, Kabel Data, Dll
+
+- Memudahkan pengembangan teknologi masa depan yang terkait layer tertentu.
+Contoh: USB Type A, B, C.
+
+========================================================================================================================================================================================
+
+# OSI Model: 
+Data Unit:              Layers:                                                                            
+- Data                - Application (Network Process to Application)                        | 
+- Data                - Presentation (Data Representation & Encryption)                     | Upper Layer: Berkaitan dengan user interface, data formatting, dan communication session.
+- Data                - Session (Interhost Communication)                                   |
+- Segments            - Transport (End to end Connection and Reliability)          |
+- Packets             - Network (Path Determination  & Logical Addressing (IP))    | Lower Layer: Berkaitan dengan bagaimana data mengalir
+- Frames              - Data Link (Physical Adderssing(MAC & LLC))                 | Contoh: Data -> segments -> packets -> frames -> bits 
+- Bits                - Physical (Media, Signal, and Binary Transimtion)           |
+
+
+Fungsi Tiap Layer:
+# Application Layer:
+Adalah Layer yang mengoperasikan data dan berhadapan langsung dengan user, seperti browser yang digunakan dan dioperasikan.
+
+- Menyediakan servis / layanan bagi berbagai aplikasi network
+	Contoh: Mozilla Firefox, Google Chrome, Ms. Outlook, Zoom, Skype
+Jenis Layanan: FTP (File Transfer), HTTP/s (Web Surfing), SMTP(Email), Telnet(Virtual Terminals/ Remote).
+
+# Presentation Layer:
+Adalah Layer yang menerjemahkan dari visual data yang ditampilkan kedalam bilangan binner/Kode ASCII yang nantinya akan dibaca oleh hardware dan dikompress 
+untuk mempercepat pengiriman packet data lalu di enkripsi agar tidak bisa dibaca oleh oranglain.
+
+- Mengatur konversi dan transisi berbagai format data (kompresi data dan enkripsi).
+Contoh: ABCDEFG -> 10011001100
+Jenis Layanan: Lossy(Ketika dikompress ada beberapa data yang hilang), Lossless(Ketika dikompress tidak ada data yang hilang), SSL(Enkripsi)
+
+# Session Layer:
+Adalah layer yang membuka komunikasi, mempertahankan komunikasi, dan menyudahi komunikasi yang dimiliki presentation.
+
+- Mengatur sesi yang meliputi establishing(membangun), maintaining(mempertahankan), dan terminating(menyudahi) antar entitas yang dimiliki presentation.
+Contoh: Proses authentikasi, authorizaiton pada sebuah website atau antara client dan server.
+
+# Transport Layer:
+Adalah layer yang memecah data menjadi segments kebeberapa bagian yang bertanggung jawab atas keselamatan data yang diatur oleh data/flow control dan diperiksa oleh error control.
+- Menyediakan end to end communication protocol, bertanggung jawab atas keselamatan data dan segmentasi(memecah) data
+Jenis Layanan: 
+- TCP(Transmission Protocol)
+Connection Oriented (Komunikasi 2 Arah): Email, WWW, FTP dll
+
+- UDP(User Datagram Protocol)
+Connectionless Oriented(Komunikasi 1 arah): Video Streaming, Music, Game Streaming Dll
+
+# Network Layer:
+Adalah layer yang merubah segments menjadi packets dan menentukan rute yang dilalui oleh data menggunakan IP Address tujuan dan pengirim (disematkan IP).
+
+- Menentukan rute yang dilalui oleh data. Menyediakan logical addressing(pengalamatan), data packet, routing(penentuan rute), path determination(path tujuan)
+Jenis Layanan : Routing, Path Determination(Rute Tercepat).
+
+# Data Link Layer:
+Adalah layer yang merubah packets menjadi frame untuk menyematkan mac address pengirim dan tujuan yang diperiksa oleh error detection pada frame flowcontrol.
+
+- Menentukan pengalamatan fisik (hardware address), error notification/detection, frame flow control(mengontrol data dari pengirim ke tujuan)
+
+
+# Physical Layer:
+Adalah layer yang merubah frame menjadi bits (proses signaling) dan dirubah menjadi bits lagi hingga masuk ke application layer. bits->frame->packets->segments->application layer
+
+- Menentukan masalah kelistrikan/gelombang/medan,tegangan/arus listrik/, media transmisi, jenis kabel, konektor dan signaling.
+
+
+========================================================================================================================================================================================
+# Komunikasi antar layer:
+- Komunikasi Vertical adalah komunikasi yang terjadi antar layer yang berada tepat diatas atau dibawahnya.
+
+- Komunikasi Horizontal adalah komunikasi yang terjadi antar layer yang sama dengan host lain bersifat virtual
+Contoh: Video Call
+
+
+# Penerapan OSI Layer:
